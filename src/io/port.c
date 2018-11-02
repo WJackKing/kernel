@@ -1,0 +1,16 @@
+#include <io/port.h>
+
+void outb(u16 port, u8 value) {
+	asm volatile("outb %0, %1" :: "dN"(port), "a"(value));
+}
+
+u8 inb(u16 port) {
+	u8 ret;
+	asm volatile("inb %0, %1" : "=a"(ret) : "dN"(port));
+}
+
+u16 inw(u16 port) {
+	u16 ret;
+	asm volatile("inw %0, %1" : "=a"(ret) : "dN"(port));
+	return ret;
+}
