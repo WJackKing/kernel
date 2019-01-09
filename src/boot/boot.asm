@@ -4,11 +4,13 @@ global start
 extern kmain
 
 section .text
-
+	;multiboot2 struct
 	header_start:
+		;magic number
 		dd 0xe85250d6
 		dd 0
 		dd header_end - header_start
+		;check sum
 		dd 0x100000000 - (0xe85250d6 + 0 + (header_end - header_start))
 		dw 0
 		dw 0
@@ -37,6 +39,7 @@ section .text
 		
 
 section .rodata
+	;gdt struct
 	gdt_start:
 		dd 0x0
 		dd 0x0
@@ -64,6 +67,7 @@ section .rodata
 	DATA_SEG equ gdt_data - gdt_start
 
 section .data
+	;save multiboot structure address
 	info: dd 0
 
 section .bss
